@@ -3,22 +3,28 @@
 layout: home
 
 hero:
-  name: 'JC Blog'
-  text: 'Blog'
-  tagline: My great project tagline
+  name: '有些东西学不会'
+  # text: '我的博客空间'
+  tagline: Coding...
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: 个人博客
+      link: /src/前端基础/HTML基础
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 书签链接
+      link: /src/前端基础/HTML基础
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon:
+      src: '/vite.svg'
+    title: 文档基于vitePress构建
+    details: 记录自己的编程学习笔记
+  - icon:
+      src: '/stack.svg'
+    title: 技术栈
+    details: React、Vue
+  - icon:
+      src: '/solve.svg'
+    title: 个人项目难点总结
+    details: 记录开发中碰到的各种技术难题及解决方案
 ---
