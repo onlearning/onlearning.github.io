@@ -9,10 +9,10 @@ hero:
   actions:
     - theme: brand
       text: 个人博客
-      link: /src/前端基础/HTML基础
+      link: /src/base/HTML基础
     - theme: alt
-      text: 书签链接
-      link: /src/前端基础/HTML基础
+      text: 我的博客园
+      link: https://www.cnblogs.com/JC30705
 
 features:
   - icon:
