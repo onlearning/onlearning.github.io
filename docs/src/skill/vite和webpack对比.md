@@ -1,4 +1,4 @@
-定位分析
+<!-- 定位分析
 打包工具：webpack、rollup、parcel、esbuild
 
 作用：可以对代码进行压缩、合并、转换、分割、打包
@@ -42,4 +42,4 @@ Vite 目前的插件 API 与使用 esbuild 作为打包器并不兼容，rollup 
 vite vite 对我们常用功能都做了内置，比如：css 预处理器、html 预处理器、hash 命名、异步加载、分包、压缩、HMR 等等，我们可以很轻松的通过配置项去配置
 
 6、社区生态
-Webpack 的 loader 和 plugin 已经非常成熟，但是，Vite 的生态还相对落后，但正在逐渐发展。
+Webpack 的 loader 和 plugin 已经非常成熟，但是，Vite 的生态还相对落后，但正在逐渐发展。 -->

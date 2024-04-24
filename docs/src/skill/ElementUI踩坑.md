@@ -1,4 +1,4 @@
-1、Element-UI tree 树形控件 checkChange 事件不触发
+<!-- 1、Element-UI tree 树形控件 checkChange 事件不触发
 需求---需要通过父节点选择子叶节点，且部分子叶节点因为权限需要禁用
 
 问题---默认父节点不展开，通过父节点选中子节点时，若父节点未展开过且子节点含有 disabled 节点，check-change 事件将只触发一次，则会出现点击父节点选择子节点，但再次点击父节点不取消选择子节点
@@ -142,4 +142,4 @@ selectable(row) {
 return row.name === '王小虎'
 }
 }
-}
+} -->

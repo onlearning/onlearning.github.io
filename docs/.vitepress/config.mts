@@ -42,6 +42,9 @@ export default defineConfig({
               { text: 'JQuery基础', link: '/base/JQuery基础' },
               { text: 'NodeJS基础', link: '/base/NodeJS基础' },
               { text: 'webpack基础', link: '/base/webpack基础' },
+              { text: 'Vue2基础', link: '/base/Vue2基础' },
+              { text: 'Vue3基础', link: '/base/Vue3基础' },
+              { text: 'React基础', link: '/base/React基础' },
               { text: '移动端基础', link: '/base/移动端基础' },
               { text: '小程序基础', link: '/base/小程序基础' }
             ]

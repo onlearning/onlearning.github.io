@@ -1,4 +1,4 @@
-清除浮动的四种方法 1.额外标签法：（在最后一个子元素浮动标签后，新加一个标签，给其 css 设置 clear：both；）
+<!-- 清除浮动的四种方法 1.额外标签法：（在最后一个子元素浮动标签后，新加一个标签，给其 css 设置 clear：both；）
 
 缺点：添加无意义标签，语义化差，不推荐
 
@@ -249,4 +249,4 @@ transform-style 控制子盒子是否保持 3d 空间 preserve-3d
 
 -webkit- safari chrome
 
--o-opera
+-o-opera -->

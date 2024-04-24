@@ -1,4 +1,4 @@
-1、基本配置
+<!-- 1、基本配置
 
 配置提交人姓名：git config --global user.name 提交人姓名
 配置提交人邮箱：git config --global user.email 提交人邮箱
@@ -31,4 +31,4 @@ git commit --amend
 退出
 如果需要修改 commit 的备注 在 git commit --amend
 出现有注释的界面（你的注释应该显示在第一行）
-输入 i 进入修改模式，修改好注释后，按 Esc 键 退出编辑模式，输入:wq 保存并退出。
+输入 i 进入修改模式，修改好注释后，按 Esc 键 退出编辑模式，输入:wq 保存并退出。 -->

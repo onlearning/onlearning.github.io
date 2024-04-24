@@ -1,4 +1,4 @@
-legend: {
+<!-- legend: {
 show: true, //是否显示
 type: "plain", // 图例的类型 'plain':普通图例 'scroll':可滚动翻页的图例
 zlevel: 1, // 所有图形的 zlevel 值。
@@ -54,4 +54,4 @@ lineHeight: 10,
 },
 }, // 自定富文本样式
 },
-},
+}, -->

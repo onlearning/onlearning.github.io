@@ -1,4 +1,4 @@
-antd 框架踩坑
+<!-- antd 框架踩坑
 1、使用 antdPro 内的组件内置 request 时，如果依赖的参数来自外部，可能会触发两次请求，解决方案: 将参数先定义至 params，从 params 内传递给 request
 
 使用 params 前
@@ -19,7 +19,7 @@ return {
 }
 return arr;
 　}}
-/>  
+/>
 使用 params 后
 
 <ProFormSelect
@@ -39,9 +39,9 @@ return {
 }
 return arr;
 　　}}
-/>  
+/>
  2、useRequest 内的入参可以在 onSuccess 内的第二个参数获取，以数组形式返回
-
+使用treeSelect时 如果有为null的key可能导致展示异常 解决方法 利用uuid给一个随机key
 3、useDispatch 的基本使用
 
 const dispatch = useDispatch()
@@ -64,7 +64,7 @@ if ( code === 200 ) {
 yield put({ type: 'setTree', payload: data }) 　　　
 } 　
 }
-}  
+}
 4、useSelector 使用
 
 const labelTask = useSelector((state) => state?.labelTask)
@@ -118,12 +118,12 @@ label: '盖章后生效',
 ！！常常用来做类型判断，在第一步!（变量）之后再做逻辑取反运算，判断变量是不是有值
 var a;
 if (a != null && typeof (a) != undefined && a != '') {
-//a 有内容才执行的代码  
+//a 有内容才执行的代码
  }
 这段代码可优化写成
 var a;
 if (!!a) {
-//a 有内容才执行的代码...  
+//a 有内容才执行的代码...
  }
 7、table 切换分页数据丢失
 
@@ -221,4 +221,4 @@ display: -webkit-box;
 // 单行文本溢出 ​​
 overflow: hidden;
 text-overflow: ellipsis;
-white-space: nowrap;
+white-space: nowrap; -->
