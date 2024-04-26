@@ -582,7 +582,9 @@ inclued 缓存的值可以在组件内部可以通过 `name` 声明组件名称�
 
 插槽 Slot 可以将不确定的、希望用户指定的定义为插槽
 
-声明一个插槽区,vue 官方规定每个 `slot` 插槽都要有一个 `name` 名称，如果没有 `name` 属性则 `name` 默认为 `default`
+### 具名插槽
+
+声明一个插槽区,vue 官方规定每个 `slot` 插槽都要有一个 `name` 名称，如果没有 `name` 属性则 `name` 默认为 `default`，带有 name 的插槽为具名插槽
 
 注意：需要指定插槽插入的位置要借助 `template` 标签或 `component` 标签,使用 `v-slot` 绑定插槽的名字
 
@@ -604,16 +606,24 @@ inclued 缓存的值可以在组件内部可以通过 `name` 声明组件名称�
 
 最后 left 会渲染出 123
 
-在封装组件时为预留的插槽可以提供其他属性，通过`#插槽名='scope'`接收
+### 作用域插槽
 
-通过 scope.其他属性可以访问这个属性
+在封装组件时为预留的插槽可以提供其他属性，通过`#插槽名='scope'`接收 这种插槽叫作用域插槽
+
+通过 `slot-scope`.其他属性可以访问这个属性
+
+```js
+  <template slot="default" slot-scope="slotProps">
+    {{ slotProps.msg }}
+  </template>
+```
 
 ```js
 //在子组 Left 中
 <slot name='default' msg='hello' :user = 'userInfo'></slot>
 //在父组件中
 <Left>
-  <template #default = "{msg , user}" >
+  <template #default = "{msg , user}" > // scope = "{msg , user}"
     <p>123</p>
     <p>{{user}}</p>
     <p>{{msg}}</p>
@@ -673,6 +683,175 @@ Vue.directive('color', function (el, binding) {
   el.style.color = bindind.value
 })
 ```
+
+### 防抖指令
+
+```js
+// 1.设置 v-debounce 自定义指令
+Vue.directive('debounce', {
+  bind: (el, binding) => {
+    let debounceTime = binding.value; // 防抖时间
+    if (!debounceTime) { // 用户若不设置防抖时间，则默认 2s
+      debounceTime = 2000;
+    }
+    let cbFun;
+    el.addEventListener('click', event => {
+      if (!cbFun) { // 第一次执行
+        cbFun = setTimeout(() => {
+        cbFun = null;
+      }, debounceTime);
+      } else {
+        // 阻止事件冒泡并且阻止该元素上同事件类型的监听器被触发
+        event && event.stopImmediatePropagation();
+      }
+    }, true);
+  },
+});
+// 2.为 button 标签设置 v-debounce 自定义指令
+​
+<button @click = "sayHello" v-debounce='1000'>提交</button>
+```
+
+### 图片懒加载指令
+
+```js
+const LazyLoad = {
+  // install 方法
+  install(Vue, options) {
+    // 代替图片的 loading 图
+    let defaultSrc = options.default
+    Vue.directive('lazy', {
+      bind(el, binding) {
+        LazyLoad.init(el, binding.value, defaultSrc)
+      },
+      inserted(el) {
+        // 兼容处理
+        if ('IntersectionObserver' in window) {
+          LazyLoad.observe(el)
+        } else {
+          LazyLoad.listenerScroll(el)
+        }
+      }
+    })
+  },
+  // 初始化
+  init(el, val, def) {
+    // data-src 储存真实 src
+    el.setAttribute('data-src', val)
+    // 设置 src 为 loading 图
+    el.setAttribute('src', def)
+  },
+  // 利用 IntersectionObserver 监听 el
+  observe(el) {
+    let io = new IntersectionObserver(entries => {
+      let realSrc = el.dataset.src
+      if (entries[0].isIntersecting) {
+        if (realSrc) {
+          el.src = realSrc
+          el.removeAttribute('data-src')
+        }
+      }
+    })
+    io.observe(el)
+  },
+  // 监听 scroll 事件
+  listenerScroll(el) {
+    let handler = LazyLoad.throttle(LazyLoad.load, 300)
+    LazyLoad.load(el)
+    window.addEventListener('scroll', () => {
+      handler(el)
+    })
+  },
+  // 加载真实图片
+  load(el) {
+    let windowHeight = document.documentElement.clientHeight
+    let elTop = el.getBoundingClientRect().top
+    let elBtm = el.getBoundingClientRect().bottom
+    let realSrc = el.dataset.src
+    if (elTop - windowHeight < 0 && elBtm > 0) {
+      if (realSrc) {
+        el.src = realSrc
+        el.removeAttribute('data-src')
+      }
+    }
+  },
+  // 节流
+  throttle(fn, delay) {
+    let timer
+    let prevTime
+    return function (...args) {
+      let currTime = Date.now()
+      let context = this
+      if (!prevTime) prevTime = currTime
+      clearTimeout(timer)
+      if (currTime - prevTime > delay) {
+        prevTime = currTime
+        fn.apply(context, args)
+        clearTimeout(timer)
+        return
+      }
+      timer = setTimeout(function () {
+        prevTime = Date.now()
+        timer = null
+        fn.apply(context, args)
+      }, delay)
+    }
+  }
+}
+export default LazyLoad
+```
+
+### 一键 Copy 指令
+
+```js
+import { Message } from 'ant-design-vue'
+const vCopy = {
+  // bind 钩子函数，第一次绑定时调用，可以在这里做初始化设置
+  // el: 作用的 dom 对象
+  // value: 传给指令的值，也就是我们要 copy 的值
+  bind(el, { value }) {
+    el.$value = value // 用一个全局属性来存传进来的值，因为这个值在别的钩子函数里还会用到
+    el.handler = () => {
+      if (!el.$value) {
+        // 值为空的时候，给出提示
+        Message.warning('无复制内容')
+        return
+      }
+      // 动态创建 textarea 标签
+      const textarea = document.createElement('textarea')
+      // 将该 textarea 设为 readonly 防止 iOS 下自动唤起键盘，同时将 textarea 移出可视区域
+      textarea.readOnly = 'readonly'
+      textarea.style.position = 'absolute'
+      textarea.style.left = '-9999px'
+      // 将要 copy 的值赋给 textarea 标签的 value 属性
+      textarea.value = el.$value
+      // 将 textarea 插入到 body 中
+      document.body.appendChild(textarea)
+      // 选中值并复制
+      textarea.select()
+      // textarea.setSelectionRange(0, textarea.value.length);
+      const result = document.execCommand('Copy')
+      if (result) {
+        Message.success('复制成功')
+      }
+      document.body.removeChild(textarea)
+    }
+    // 绑定点击事件，就是所谓的一键 copy 啦
+    el.addEventListener('click', el.handler)
+  },
+  // 当传进来的值更新的时候触发
+  componentUpdated(el, { value }) {
+    el.$value = value
+  },
+  // 指令与元素解绑的时候，移除事件绑定
+  unbind(el) {
+    el.removeEventListener('click', el.handler)
+  }
+}
+export default vCopy
+```
+
+关于自定义指令还有很多应用场景，如：拖拽指令、页面水印、权限校验等等应用场景
 
 ## 路由
 
@@ -810,6 +989,80 @@ vue 常用的编程式导航`this.$router`
 前进 `this.$router.forward()`
 
 后退 `this.$router.back()`
+
+### vue 路由传参
+
+项目中很多情况下都需要进行路由之间的传值，可以使用 `sessionstorage/localstorage/cookie` 进行离线缓存存储也可以，用 `vuex` 也可以，如果只是简单的传值可以使用 `vue` 自带的路由传参方法
+
+参考官方文档：https://router.vuejs.org/zh/guide/essentials/passing-props.html
+
+想要实现点击当前页的某个按钮或链接跳转到另外一个页面去，并将某个参数带过去
+
+#### 页面刷新数据不会丢失
+
+```js
+<div @click = "insurance(123)">我要传参</div>
+
+methods：{
+  insurance(id) {
+    //直接调用$router.push 实现携带参数的跳转
+    this.$router.push({
+      path: `/particulars/${id}`,
+    })
+  }
+}
+// 需要对应路由配置如下：可以看出需要在 path 中添加/:id 来对应 $router.push 中 path 携带的参数。
+{
+  path: '/particulars/:id',
+  name: 'particulars',
+  component: particulars
+}
+
+```
+
+目标页面获取参数方法：`this.$route.params.id`
+
+#### 页面刷新数据会丢失
+
+类似 post 请求 通过路由属性中的 `name` 来确定匹配的路由，通过 `params` 来传递参数。
+
+```js
+methods：{
+  insurance(id) {
+    this.$router.push({
+      name: 'particulars',
+      params: {
+        id: id
+      }
+  })
+}
+```
+
+对应路由配置正常配置即可
+
+目标页面获取参数方法：`this.$route.params.id`
+
+#### query 传参
+
+参数会显示在 url 后面以`?`拼接的形式，类似 get 请求
+
+使用 path 来匹配路由，然后通过 query 来传递参数
+
+```js
+methods：{
+  insurance(id) {
+    this.$router.push({
+      path: '/particulars',
+      query: {
+        id: id
+      }
+  })
+}
+```
+
+对应路由配置正常配置即可
+
+目标页面获取参数方法：'this.$route.query.id'
 
 ### 导航守卫
 

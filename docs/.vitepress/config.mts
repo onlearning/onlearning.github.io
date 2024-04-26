@@ -42,28 +42,48 @@ export default defineConfig({
               { text: 'JQuery基础', link: '/base/JQuery基础' },
               { text: 'NodeJS基础', link: '/base/NodeJS基础' },
               { text: 'webpack基础', link: '/base/webpack基础' },
-              { text: 'Vue2基础', link: '/base/Vue2基础' },
-              { text: 'Vue3基础', link: '/base/Vue3基础' },
-              { text: 'React基础', link: '/base/React基础' },
               { text: '移动端基础', link: '/base/移动端基础' },
               { text: '小程序基础', link: '/base/小程序基础' }
+            ]
+          },
+          {
+            text: 'Vue&React',
+            collapsed: true,
+            items: [
+              { text: 'Vue2基础', link: '/stack/Vue2基础' },
+              { text: 'Vue2踩坑', link: '/stack/Vue2踩坑' },
+              { text: 'ElementUI踩坑', link: '/stack/ElementUI踩坑' },
+              { text: 'Vue3基础', link: '/stack/Vue3基础' },
+              { text: 'React基础', link: '/stack/React基础' },
+              { text: 'React踩坑', link: '/stack/React踩坑' }
             ]
           },
           {
             text: '技巧',
             collapsed: true,
             items: [
-              { text: '常用正则', link: '/skill/常用正则' }
-              // { text: 'JDK安装', link: '/skill/JDK安装' }
+              { text: '常用正则', link: '/skill/常用正则' },
+              { text: 'Array数组常用方法', link: '/skill/Array数组常用方法' },
+              { text: 'CSS技巧', link: '/skill/CSS技巧' },
+              { text: 'JS实现金额格式化', link: '/skill/JS实现金额格式化' },
+              { text: 'JS实现水印效果', link: '/skill/JS实现水印效果' },
+              { text: 'Echarts图例属性', link: '/skill/Echarts图例属性' },
+              { text: 'vite和webpack对比', link: '/skill/vite和webpack对比' },
+              { text: 'webpack优化', link: '/skill/webpack优化' },
+              { text: '可选链与空值合并操作符', link: '/skill/可选链与空值合并操作符' }
             ]
           },
           {
             text: '其他',
             collapsed: true,
             items: [
-              { text: 'JDK安装', link: '/other/JDK安装' },
+              { text: '面试常见问题', link: '/other/面试常见问题' },
+              { text: '前端埋点', link: '/other/前端埋点' },
+              { text: 'git常用命令', link: '/other/git常用命令' },
+              { text: 'Day.js', link: '/other/DayJs' },
+              { text: 'ESLint', link: '/other/ESLint' },
               { text: 'Dos命令', link: '/other/Dos命令' },
-              { text: 'ESLint', link: '/other/ESLint' }
+              { text: 'JDK安装', link: '/other/JDK安装' }
             ]
           }
         ]
