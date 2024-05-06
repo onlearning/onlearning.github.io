@@ -62,6 +62,8 @@ export default defineConfig({
             text: '技巧',
             collapsed: true,
             items: [
+              { text: '前端优化', link: '/skill/前端优化' },
+              { text: '前端适配方案', link: '/skill/前端适配方案' },
               { text: '常用正则', link: '/skill/常用正则' },
               { text: 'Array数组常用方法', link: '/skill/Array数组常用方法' },
               { text: 'CSS技巧', link: '/skill/CSS技巧' },
