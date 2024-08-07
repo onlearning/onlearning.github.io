@@ -51,7 +51,8 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'Vue2基础', link: '/stack/Vue2基础' },
-              { text: 'Vue2踩坑', link: '/stack/Vue2踩坑' },
+              { text: 'Vue2踩坑(1)', link: '/stack/Vue2踩坑' },
+              { text: 'Vue2踩坑(2)', link: '/stack/Vue2踩坑-2' },
               { text: 'ElementUI踩坑', link: '/stack/ElementUI踩坑' },
               { text: 'Vue3基础', link: '/stack/Vue3基础' },
               { text: 'React基础', link: '/stack/React基础' },
