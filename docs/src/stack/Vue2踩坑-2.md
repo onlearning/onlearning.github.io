@@ -200,3 +200,69 @@ const dealMsg = () => {
   }
 }
 ```
+
+## createElement 创建组件
+
+`createElement('', {}, [])`有三个参数
+
+1、第一个参数可以为 `HTML` 标签名，如'`div`' 或者为封装的一个组件名(如组件名为 `querySelect`，第一个参数就为 `querySelect`)
+
+2、第二个参数为第一个参数所创建的模板的属性对象，编写格式为（可以不写，就是不定义属性）
+
+```js
+{
+	style：{
+		width: '80px', marginLeft: '20px'
+	}，
+	//给创建的组件定义名称
+	ref：'dom',
+	//给创建的组件定义方法
+	on: {
+		receiveData: (value) => {
+      console.log(value)
+    }
+	}
+}
+
+```
+
+3、第三个参数可以子虚拟节点为一个数组（数组可以 不写，表示在此模板下不定义子模板 ）
+
+```js
+render: function (createElement) {
+   return createElement('div', {}, [
+   	createElement('Button', {}, []),
+   	//同样第二个参数{}定义button的各种属性，可以不写，就是不定义属性，第三个参数[],数组可以
+   	//不写，表示在此button模板下不定义子模板
+   	createElement('Button', {}, []),
+   	createElement('Button', {}, [])
+   ])
+}
+```
+
+### 使用 createElement 为 ElementUI 的 Notification 组件自定义内部样式
+
+```js
+import CustomerComp from '/customerComp' // 引入组件并在components内注册
+
+// 使用
+const h = this.$createElement;
+const notify = this.$notify({
+  title: '自定义组件'
+  message: h('CustomerComp',
+    {
+      style: 'color: teal',
+      ref: 'CustomerComp',
+      pros: {
+        text: '测试一下'
+      }，
+      on: {
+        buttonClick: (value)=>{
+          console.log(value)
+          notify.close()// notify为返回的实例 可以直接调用close关闭通知
+        }
+      }
+    }
+  )
+})
+```
